@@ -213,9 +213,9 @@ main {
 .hero h1 span {
   background: linear-gradient(90deg, #fff, var(--pink), #9f91ff);
   -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
-
 .hero-sub {
   color: #d1d6e5;
   max-width: 600px;
@@ -770,4 +770,323 @@ footer {
   .immigration {
     padding: 0 8px;
   }
+
+
+  /* ==========================================
+    EVENT TWO-BOX STRUCTURE
+    ========================================== */
+  .events {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .event-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* กล่องที่ 1: กล่องกิจกรรมหลัก */
+  .event-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  .event-main:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .event-main time {
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    min-width: 50px;
+  }
+
+  .event-main h4 {
+    margin: 0;
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: #f0f2f8;
+  }
+
+  /* ปุ่มและลูกศร */
+  .toggle-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: var(--muted);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    pointer-events: none; /* ให้คลิกที่พื้นที่กล่องได้เลย */
+  }
+
+  .toggle-btn .arrow {
+    font-size: 12px;
+    transition: transform 0.25s ease;
+  }
+
+  /* เมื่อกดเปิด (State: open) */
+  .event-group.open .event-main {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+  }
+
+  .event-group.open .toggle-btn .arrow {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  /* กล่องที่ 2: กล่องรายละเอียดกิจกรรม (แสดงด้านล่าง) */
+  .event-sub-details {
+    display: none;
+    padding: 14px 20px;
+    margin-left: 12px; /* เยื้องเข้าเล็กน้อยให้เห็นว่าเป็นกล่องย่อย */
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 12px;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .event-group.open .event-sub-details {
+    display: block;
+  }
+
+  .event-sub-details p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #c4c9d8;
+    white-space: pre-line;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive บนมือถือ */
+  @media (max-width: 560px) {
+    .event-main {
+      padding: 12px 14px;
+      gap: 12px;
+    }
+    .event-main time {
+      font-size: 13px;
+      min-width: 42px;
+    }
+    .event-main h4 {
+      font-size: 14px;
+    }
+    .event-sub-details {
+      margin-left: 6px;
+      padding: 12px 14px;
+    }
+  }  
 }
+
+/* ==========================================
+   DRAWER QUICK NAV & DIVIDER STYLING
+   ========================================== */
+.drawer-menu-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 16px 0;
+}
+
+.drawer-quick-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent2);
+}
+
+.drawer-quick-nav a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+/* ==========================================
+   BUDGET SUMMARY & DRIVING STYLING
+   ========================================== */
+.budget-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(71, 216, 192, 0.06);
+  border: 1px solid rgba(71, 216, 192, 0.2);
+  border-radius: 14px;
+}
+
+.budget-box h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: var(--accent2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.budget-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.driving-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 121, 176, 0.06);
+  border: 1px solid rgba(255, 121, 176, 0.2);
+  border-radius: 14px;
+}
+
+.driving-box h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: var(--pink);
+}
+
+.driving-box ul {
+  margin: 6px 0 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+/* ==========================================
+   IMMIGRATION INFO CARD STYLING
+   ========================================== */
+.immigration-info-card {
+  margin-top: 32px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+}
+
+.immig-card-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px 0;
+}
+
+.immig-card-header p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 20px 0;
+}
+
+.passenger-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.passenger-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.passenger-card.husband {
+  border-left: 4px solid var(--accent);
+}
+
+.passenger-card.wife {
+  border-left: 4px solid var(--pink);
+}
+
+.passenger-card h4 {
+  font-size: 15px;
+  margin: 0 0 10px 0;
+  color: #fff;
+}
+
+.passenger-card ul,
+.stay-details-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #e2e8f0;
+}
+
+.stay-details-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.stay-details-card h4 {
+  font-size: 15px;
+  color: #fff;
+  margin: 0 0 10px 0;
+}
+
+.qa-card {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.qa-card h4 {
+  font-size: 15px;
+  color: #fff;
+  margin: 0 0 12px 0;
+}
+
+.qa-list {
+  display: grid;
+  gap: 12px;
+  font-size: 13.5px;
+}
+
+.qa-item strong {
+  display: block;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.qa-item span {
+  color: #cbd5e1;
+}
+
+@media (max-width: 560px) {
+  .immigration-info-card {
+    padding: 16px;
+  }
+}
+
