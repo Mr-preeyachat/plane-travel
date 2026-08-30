@@ -1,0 +1,773 @@
+/* ==========================================
+   1. VARIABLES & RESET
+   ========================================== */
+:root {
+  --bg: #070b16;
+  --panel: #10182a;
+  --panel2: #151f35;
+  --text: #f7f8fc;
+  --muted: #aeb7ca;
+  --line: rgba(255, 255, 255, 0.1);
+  --accent: #8d7bff;
+  --accent2: #47d8c0;
+  --pink: #ff79b0;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 70% 10%, #1b2148 0, #0c1121 30%, var(--bg) 70%);
+  color: var(--text);
+  font-family: Prompt, Kanit, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+main {
+  max-width: 1180px;
+  margin: auto;
+  padding-top: 72px;
+}
+
+/* ==========================================
+   2. TOPBAR & BRAND
+   ========================================== */
+.topbar {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: linear-gradient(180deg, rgba(7, 11, 22, 0.95), rgba(7, 11, 22, 0.55));
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--pink), var(--accent));
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.brand strong,
+.brand span {
+  display: block;
+}
+
+.brand strong {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.brand span {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+}
+
+.icon-btn {
+  border: 0;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ==========================================
+   3. DRAWER & SCRIM
+   ========================================== */
+.drawer {
+  position: fixed;
+  z-index: 70;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: min(340px, 90vw);
+  background: #0c1222;
+  transform: translateX(-105%);
+  transition: 0.28s ease;
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.drawer.open {
+  transform: none;
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 50px 0 24px;
+}
+
+.drawer nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.drawer nav a small {
+  color: var(--muted);
+}
+
+.drawer-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 20px;
+  line-height: 1.7;
+}
+
+.scrim {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+.scrim.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================
+   4. HERO SECTION
+   ========================================== */
+.hero {
+  min-height: 650px;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 42px;
+  border-bottom-right-radius: 42px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(7, 11, 22, 0.98) 0%, rgba(7, 11, 22, 0.78) 46%, rgba(7, 11, 22, 0.2) 100%),
+    url('https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+
+.hero-content {
+  position: relative;
+  padding: 110px 34px 100px;
+  max-width: 760px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #bfc7da;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 8vw, 86px);
+  line-height: 0.96;
+  margin: 0 0 20px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #fff, var(--pink), #9f91ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  color: #d1d6e5;
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.btn {
+  padding: 12px 17px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.primary {
+  background: white;
+  color: #111;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.hero-card {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  width: 220px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 22px;
+  background: rgba(7, 11, 22, 0.46);
+  backdrop-filter: blur(16px);
+}
+
+.hero-card span,
+.hero-card small {
+  display: block;
+  color: #c0c7d7;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.hero-card b {
+  display: block;
+  font-size: 35px;
+  margin: 2px 0;
+}
+
+/* ==========================================
+   5. QUICKBAR & STATS
+   ========================================== */
+.quickbar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.stat > span {
+  font-size: 24px;
+}
+
+.stat small,
+.stat b {
+  display: block;
+}
+
+.stat small {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.stat b {
+  font-size: 17px;
+}
+
+/* ==========================================
+   6. INTRO & SECTIONS
+   ========================================== */
+.intro,
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: end;
+  padding: 60px 24px 28px;
+}
+
+.intro h2,
+.section-title h2 {
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.intro > p {
+  max-width: 430px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* ==========================================
+   7. TIMELINE & CARDS
+   ========================================== */
+.timeline-wrap {
+  padding: 0 18px;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline:before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(var(--pink), var(--accent), var(--accent2));
+  opacity: 0.35;
+}
+
+.day {
+  position: relative;
+  padding-left: 56px;
+  margin-bottom: 38px;
+}
+
+.day-dot {
+  position: absolute;
+  left: 7px;
+  top: 24px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 6px solid var(--accent);
+  box-shadow: 0 0 0 5px rgba(141, 123, 255, 0.1);
+}
+
+.day-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.day-photo {
+  height: 210px;
+  background: center/cover no-repeat;
+}
+
+.day-body {
+  padding: 22px;
+}
+
+.day-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.day-label {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.day h3 {
+  font-size: 27px;
+  margin: 4px 0 4px;
+  letter-spacing: -0.03em;
+}
+
+.date {
+  color: #c3cada;
+  font-size: 13px;
+}
+
+.story {
+  color: #bcc5d5;
+  line-height: 1.8;
+  margin: 14px 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 12px 0 18px;
+}
+
+.chip {
+  font-size: 11px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #dfe4ef;
+}
+
+.events {
+  display: grid;
+  gap: 10px;
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.event time {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.event h4 {
+  margin: 0 0 3px;
+  font-size: 15px;
+}
+
+.event p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.link-btn {
+  padding: 9px 12px;
+  font-size: 11px;
+  border-radius: 11px;
+  background: #fff;
+  color: #10131c;
+}
+
+.link-btn.dark {
+  background: rgba(255, 255, 255, 0.07);
+  color: #f5f6fa;
+  border: 1px solid var(--line);
+}
+
+/* ==========================================
+   8. PACKING & IMMIGRATION
+   ========================================== */
+.packing,
+.immigration {
+  padding: 0 18px;
+  margin-top: 40px;
+}
+
+.section-title {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.section-title > span {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.progress {
+  height: 9px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--pink), var(--accent2));
+  transition: 0.3s;
+}
+
+.pack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.pack-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  cursor: pointer;
+}
+
+.pack-item input {
+  display: none;
+}
+
+.check {
+  width: 25px;
+  height: 25px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: grid;
+  place-items: center;
+  color: transparent;
+}
+
+.pack-item.checked .check {
+  background: linear-gradient(135deg, var(--pink), var(--accent));
+  color: #fff;
+}
+
+.pack-item.checked .text {
+  text-decoration: line-through;
+  color: #7f899d;
+}
+
+.text {
+  font-size: 13px;
+}
+
+.arrival-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.arrival-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.045);
+  min-height: 225px;
+}
+
+.arrival-card.important {
+  background: linear-gradient(145deg, rgba(255, 121, 176, 0.12), rgba(141, 123, 255, 0.09));
+}
+
+.arrival-card .num {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: #bbc2d2;
+}
+
+.arrival-card h3 {
+  font-size: 19px;
+  margin: 14px 0 8px;
+}
+
+.arrival-card p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.arrival-card a {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.notice {
+  margin-top: 15px;
+  padding: 17px 19px;
+  border-radius: 18px;
+  background: rgba(71, 216, 192, 0.06);
+  border: 1px solid rgba(71, 216, 192, 0.18);
+  color: #c9d6da;
+  line-height: 1.8;
+  font-size: 12px;
+}
+
+/* ==========================================
+   9. FOOTER
+   ========================================== */
+.footer-note {
+  margin: 65px 18px 20px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: flex;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.footer-note > span {
+  font-size: 25px;
+}
+
+.footer-note p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #707a90;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+
+/* ==========================================
+   10. MEDIA QUERIES (RESPONSIVE)
+   ========================================== */
+@media (max-width: 850px) {
+  .hero-card {
+    display: none;
+  }
+  .arrival-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .intro {
+    display: block;
+  }
+  .intro > p {
+    margin-top: 20px;
+  }
+  .pack-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    height: 64px;
+  }
+  .brand strong {
+    font-size: 10px;
+  }
+  .brand span {
+    font-size: 9px;
+  }
+  main {
+    padding-top: 64px;
+  }
+  .hero {
+    min-height: 620px;
+    border-radius: 0 0 30px 30px;
+  }
+  .hero-content {
+    padding: 90px 22px 60px;
+  }
+  .hero h1 {
+    font-size: 54px;
+  }
+  .hero-sub {
+    font-size: 14px;
+  }
+  .quickbar {
+    padding: 10px;
+    gap: 8px;
+  }
+  .stat {
+    padding: 12px 10px;
+    border-radius: 16px;
+  }
+  .stat > span {
+    font-size: 19px;
+  }
+  .stat b {
+    font-size: 14px;
+  }
+  .stat small {
+    font-size: 9px;
+  }
+  .intro,
+  .section-title {
+    padding: 45px 8px 24px;
+  }
+  .timeline-wrap {
+    padding: 0 8px;
+  }
+  .timeline:before {
+    left: 13px;
+  }
+  .day {
+    padding-left: 40px;
+  }
+  .day-dot {
+    left: 1px;
+    width: 25px;
+    height: 25px;
+  }
+  .day-card {
+    border-radius: 22px;
+  }
+  .day-photo {
+    height: 170px;
+  }
+  .day-body {
+    padding: 17px;
+  }
+  .day-head {
+    display: block;
+  }
+  .day h3 {
+    font-size: 23px;
+  }
+  .event {
+    grid-template-columns: 60px 1fr;
+  }
+  .arrival-grid {
+    grid-template-columns: 1fr;
+  }
+  .arrival-card {
+    min-height: 0;
+  }
+  .packing,
+  .immigration {
+    padding: 0 8px;
+  }
+}
