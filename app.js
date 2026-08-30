@@ -659,7 +659,7 @@ function closeDrawer(){ $('#drawer').classList.remove('open'); $('#scrim').class
 $('#menuBtn').onclick = openDrawer;
 $('#closeMenu').onclick = closeDrawer;
 $('#scrim').onclick = closeDrawer;
-document.addEventListener('click', e => { const a = e.target.closest('[data-day]'); if(a) closeDrawer(); });
+document.addEventListener('click', e => { const a = e.target.closest('#drawer nav a'); if(a) closeDrawer(); });
 $('#todayBtn').onclick = () => document.querySelector('#d15').scrollIntoView({behavior:'smooth', block:'start'});
 $('#checkBtn').onclick = () => document.querySelector('#packing').scrollIntoView({behavior:'smooth'});
 
