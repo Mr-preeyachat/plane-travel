@@ -548,7 +548,21 @@ const tripData = [
 ];
 
 const packing = [
-  ['passport','พาสปอร์ตตัวจริง + ตรวจวันหมดอายุ'],['ticket','ตั๋วเครื่องบิน / Boarding pass'],['hotel','เอกสารที่พัก + ที่อยู่ในญี่ปุ่น'],['vjw','ลงทะเบียน Visit Japan Web + เตรียม QR'],['cash','เงินเยน + บัตรเครดิต/เดบิต'],['phone','มือถือ + eSIM/SIM + อินเทอร์เน็ต'],['charger','หัวชาร์จ + สายชาร์จ'],['plug','ปลั๊กแปลงไฟญี่ปุ่น (Type A)'],['power','แบตสำรอง / Power Bank'],['camera','กล้อง + SD card'],['tripod','ขาตั้งกล้อง'],['battery','แบตกล้องสำรอง / ชาร์จเต็ม'],['medicine','ยาประจำตัว / ของใช้จำเป็น'],['wallet','บัตรประชาชน / เอกสารสำรอง'],['photo','ถ่ายรูป/สแกนเอกสารสำคัญเก็บในมือถือ']
+  ['passport', 'พาสปอร์ตตัวจริง + ตรวจวันหมดอายุ'],
+  ['ticket', 'ตั๋วเครื่องบิน / Boarding pass'],
+  ['hotel', 'เอกสารที่พัก + ที่อยู่ในญี่ปุ่น'],
+  ['vjw', 'ลงทะเบียน Visit Japan Web + เตรียม QR'],
+  ['cash', 'เงินเยน + บัตรเครดิต/เดบิต'],
+  ['phone', 'มือถือ + eSIM/SIM + อินเทอร์เน็ต'],
+  ['charger', 'หัวชาร์จ + สายชาร์จ'],
+  ['plug', 'ปลั๊กแปลงไฟญี่ปุ่น (Type A)'],
+  ['power', 'แบตสำรอง / Power Bank'],
+  ['camera', 'กล้อง + SD card'],
+  ['tripod', 'ขาตั้งกล้อง'],
+  ['battery', 'แบตกล้องสำรอง / ชาร์จเต็ม'],
+  ['medicine', 'ยาประจำตัว / ของใช้จำเป็น'],
+  ['wallet', 'บัตรประชาชน / เอกสารสำรอง'],
+  ['photo', 'ถ่ายรูป/สแกนเอกสารสำคัญเก็บในมือถือ']
 ];
 
 const $ = s => document.querySelector(s);
@@ -556,31 +570,98 @@ const timeline = $('#timeline');
 const dayMenu = $('#dayMenu');
 
 function esc(s){ return String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\\':'&bsol;','"':'&quot;'}[c])); }
-function render(){
-  timeline.innerHTML = tripData.map(d=>`<article class="day" id="${d.id}">
-    <span class="day-dot"></span><div class="day-card">
-      <div class="day-photo" style="background-image:url('${d.image}')"></div>
-      <div class="day-body"><div class="day-head"><div><div class="day-label">${esc(d.month)}</div><h3>${esc(d.title)}</h3><div class="date">${esc(d.date)} • ${esc(d.subtitle)}</div></div></div>
-      <p class="story">${esc(d.story)}</p><div class="chips">${d.chips.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div>
-      <div class="events">${d.events.map(e=>`<div class="event"><time>${esc(e[0])}</time><div><h4>${esc(e[1])}</h4><p>${esc(e[2])}</p></div></div>`).join('')}</div>
-      <div class="links">${d.links.map((l,i)=>`<a class="link-btn ${i?'dark':''}" href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])} ↗</a>`).join('')}</div>
-      </div></div></div></article>`).join('');
-  dayMenu.innerHTML = tripData.map(d=>`<a href="#${d.id}" data-day="${d.id}"><span>${esc(d.date)} · ${esc(d.title)}</span><small>›</small></a>`).join('');
+
+function render() {
+  timeline.innerHTML = tripData
+    .map(
+      (d) => `
+    <article class="day" id="${d.id}">
+      <span class="day-dot"></span>
+      <div class="day-card">
+        <div class="day-photo" style="background-image:url('${d.image}')"></div>
+        <div class="day-body">
+          <div class="day-head">
+            <div>
+              <div class="day-label">${esc(d.date)} • ${esc(d.month)}</div>
+              <h3>${esc(d.title)}</h3>
+              <div class="date">${esc(d.subtitle)}</div>
+            </div>
+          </div>
+          <p class="story">${esc(d.story)}</p>
+          <div class="chips">
+            ${d.chips.map((x) => `<span class="chip">${esc(x)}</span>`).join('')}
+          </div>
+          <div class="events">
+            ${d.events
+              .map(
+                (e) => `
+              <div class="event">
+                <time>${esc(e[0])}</time>
+                <div>
+                  <h4>${esc(e[1])}</h4>
+                  <p>${esc(e[2])}</p>
+                </div>
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+          <div class="links">
+            ${d.links
+              .map(
+                (l, i) =>
+                  `<a class="link-btn ${i ? 'dark' : ''}" href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])} ↗</a>`
+              )
+              .join('')}
+          </div>
+        </div>
+      </div>
+    </article>
+  `
+    )
+    .join('');
+
+  dayMenu.innerHTML = tripData
+    .map(
+      (d) => `
+    <a href="#${d.id}" data-day="${d.id}">
+      <span>${esc(d.date)} · ${esc(d.title)}</span>
+      <small>›</small>
+    </a>
+  `
+    )
+    .join('');
 }
 
 function renderPacking(){
-  const saved = JSON.parse(localStorage.getItem('japanTripPacking')||'{}');
-  $('#packingList').innerHTML = packing.map(([id,text])=>`<label class="pack-item ${saved[id]?'checked':''}" data-id="${id}"><input type="checkbox" ${saved[id]?'checked':''}><span class="check">✓</span><span class="text">${esc(text)}</span></label>`).join('');
-  document.querySelectorAll('.pack-item').forEach(item=>item.addEventListener('click',()=>{const input=item.querySelector('input');input.checked=!input.checked;item.classList.toggle('checked',input.checked);saved[item.dataset.id]=input.checked;localStorage.setItem('japanTripPacking',JSON.stringify(saved));updateProgress();}));
+  const saved = JSON.parse(localStorage.getItem('japanTripPacking') || '{}');
+  $('#packingList').innerHTML = packing.map(([id,text]) => `<label class="pack-item ${saved[id] ? 'checked' : ''}" data-id="${id}"><input type="checkbox" ${saved[id] ? 'checked' : ''}><span class="check">✓</span><span class="text">${esc(text)}</span></label>`).join('');
+  document.querySelectorAll('.pack-item').forEach(item => item.addEventListener('click', () => {
+    const input = item.querySelector('input');
+    input.checked = !input.checked;
+    item.classList.toggle('checked', input.checked);
+    saved[item.dataset.id] = input.checked;
+    localStorage.setItem('japanTripPacking', JSON.stringify(saved));
+    updateProgress();
+  }));
   updateProgress();
 }
-function updateProgress(){const n=document.querySelectorAll('.pack-item').length||1,c=document.querySelectorAll('.pack-item.checked').length,p=Math.round(c/n*100);$('#packProgress').textContent=p+'%';$('#packBar').style.width=p+'%';}
+
+function updateProgress(){
+  const n = document.querySelectorAll('.pack-item').length || 1, c = document.querySelectorAll('.pack-item.checked').length, p = Math.round(c/n*100);
+  $('#packProgress').textContent = p + '%';
+  $('#packBar').style.width = p + '%';
+}
+
 function openDrawer(){ $('#drawer').classList.add('open'); $('#scrim').classList.add('show'); }
 function closeDrawer(){ $('#drawer').classList.remove('open'); $('#scrim').classList.remove('show'); }
 
-$('#menuBtn').onclick=openDrawer;$('#closeMenu').onclick=closeDrawer;$('#scrim').onclick=closeDrawer;
-document.addEventListener('click',e=>{const a=e.target.closest('[data-day]');if(a)closeDrawer();});
-$('#todayBtn').onclick=()=>document.querySelector('#d15').scrollIntoView({behavior:'smooth',block:'start'});
-$('#checkBtn').onclick=()=>document.querySelector('#packing').scrollIntoView({behavior:'smooth'});
+$('#menuBtn').onclick = openDrawer;
+$('#closeMenu').onclick = closeDrawer;
+$('#scrim').onclick = closeDrawer;
+document.addEventListener('click', e => { const a = e.target.closest('[data-day]'); if(a) closeDrawer(); });
+$('#todayBtn').onclick = () => document.querySelector('#d15').scrollIntoView({behavior:'smooth', block:'start'});
+$('#checkBtn').onclick = () => document.querySelector('#packing').scrollIntoView({behavior:'smooth'});
 
-render();renderPacking();
+render();
+renderPacking();
