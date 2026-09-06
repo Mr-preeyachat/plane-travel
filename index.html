@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <title>Japan Trip • Our Travel Timeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn" id="menuBtn" aria-label="เปิดเมนู">☰</button>
+    <div class="brand">
+      <div class="brand-mark">JP</div>
+      <div><strong>AIRKANG JAPAN TRIP</strong><span>Travel Timeline</span></div>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="scrollTopBtn" aria-label="เลื่อนขึ้นบนสุด">⬆︎</button>
+      <button class="icon-btn" id="todayBtn" aria-label="ไปยังวันนี้">⌖</button>
+    </div>
+  </header>
+
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head"><b>TRIP MENU</b><button class="icon-btn" id="closeMenu">×</button></div>
+    <div class="drawer-body-scroll">
+      <nav id="dayMenu"></nav>
+      <div class="drawer-menu-divider"></div>
+      <nav class="drawer-quick-nav">
+        <a href="#packing" onclick="closeDrawer()">
+          <span>📋 เช็กลิสต์ก่อนบิน</span>
+          <small>›</small>
+        </a>
+        <a href="#immigration" onclick="closeDrawer()">
+          <span>✈️ เข้าประเทศญี่ปุ่น (ตม. & VJW)</span>
+          <small>›</small>
+        </a>
+      </nav>
+      <div class="drawer-note">แตะหัวข้อเพื่อกระโดดไปยังแผนนั้นทันที</div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="eyebrow">OSAKA • JAPAN • OUR STORY</p>
+        <h1>เที่ยวญี่ปุ่น<br><span>กับครูแอร์</span></h1>
+        <p class="hero-sub">รวมเวลาเดินทาง · ตั๋ว · โรงแรม · แผนที่ · เอกสาร ตม. · เช็กลิสต์ ไว้ในหน้าเดียว</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="index2.html" target="_blank" rel="noopener">📃 Japanese Signboard (ป้ายประโยคยื่นร้านค้า) ↗</a>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="https://www.google.com/maps/d/u/0/edit?mid=1mgySCK6p1zOPgGw0TDaFT8raEsjstqE&ll=34.66869554164994%2C135.5136506921108&z=13" target="_blank" rel="noopener">🗺️ แผนที่ท่องเทียว ↗</a>
+          <a class="btn primary" href="https://tomarigi.me/" target="_blank" rel="noopener">🧭 สถาพอากาศ ↗</a>
+        </div>
+        <div class="hero-actions">
+          <button class="btn glass" id="checkBtn">🚀 เตรียมตัวเดินทาง Visit Japan</button>
+          <a class="btn glass" href="https://drive.google.com/drive/folders/1Z21YAII_i_hLRsEdMsZwZmaCii2yt-7_?usp=sharing" target="_blank" rel="noopener">📁 drive ↗</a>
+        </div>  
+
+
+
+      </div>
+      <div class="hero-card">
+        <span>DEPARTURE</span><b>15 → 20</b><small>Osaka 🍜🥩🍙🍤🍣🍢🍻</small>
+      </div>
+    </section>
+
+    <section class="quickbar">
+      <div class="stat"><span>✈</span><div><b>Flight</b><small>Bangkok to Osaka - 15 Oct 2569 01.10 <br> Osaka to Bangkok - 20 Oct 2569 21.00</small></div></div>
+      <div class="stat"><span>⌂</span><div><b>Hotel</b><small>Royal Namba South <br> 1-chōme-4-5 Ebisuhonmachi, Naniwa Ward, Osaka, Osaka Prefecture, 556-0013, Japan</small></div></div>
+      <div class="stat"><span>◷</span><div><b>Travel</b><small>6 Days 5 Nights <br> Kansai • Kyoto • Kobe • Wakayama</small></div></div>
+    </section>
+
+    <section class="intro">
+      <div>
+        <p class="eyebrow">TRIP CONTROL CENTER</p>
+        <h2>เลื่อนลงตามวัน<br>แล้วใช้ชีวิตตาม Timeline</h2>
+      </div>
+      <p>แต่ละวันมีเวลา กิจกรรม รายละเอียดขั้นตอน ราคา เวลาเดินทาง และปุ่มทางลัดครบในจุดเดียว รองรับการเปิดบนมือถือเต็มรูปแบบ</p>
+    </section>
+
+    <section class="timeline-wrap">
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="packing" id="packing">
+      <div class="section-title"><div><p class="eyebrow">BEFORE YOU GO</p><h2>เช็กลิสต์ก่อนบิน</h2></div><span id="packProgress">0%</span></div>
+      <div class="progress"><i id="packBar"></i></div>
+      <div class="pack-grid" id="packingList"></div>
+    </section>
+
+    <section class="immigration" id="immigration">
+      <div class="section-title"><div><p class="eyebrow">JAPAN ARRIVAL</p><h2>เข้าประเทศญี่ปุ่น & เอกสาร ตม.</h2></div></div>
+      <div class="arrival-grid">
+        <article class="arrival-card important">
+          <span class="num">01</span><h3>กรอก Visit Japan Web</h3>
+          <p>ลงทะเบียนข้อมูลสำหรับขั้นตอนตรวจคนเข้าเมืองและศุลกากรล่วงหน้า แล้วเก็บ QR Code ให้พร้อมบนมือถือ (แคปหน้าจอไว้ด้วย)</p>
+          <a href="https://www.vjw.digital.go.jp/" target="_blank" rel="noopener">เปิด Visit Japan Web ↗</a>
+          
+        </article>
+
+        <article class="arrival-card"><span class="num">02</span><h3>เอกสารที่ควรหยิบได้ทันที</h3>
+          <p>พาสปอร์ต • ตั๋วขากลับ • ที่พัก/ที่อยู่ในญี่ปุ่น • เบอร์ติดต่อ • แผนเที่ยว • เงินสด/บัตร</p>
+
+        </article>
+        <article class="arrival-card"><span class="num">03</span>
+          <h3>เอกสาร Document</h3>
+          <p>เอกสารยังไม่ได้ใส่</p>
+          <a href="assets/ticket.pdf" target="_blank" rel="noopener">พาสปอร์ต Passport↗</a><br>
+          <a href="assets/ticket.pdf" target="_blank" rel="noopener">ตั๋วเครื่องบิน Flight tickets↗</a><br>
+          <a href="assets/ticket.pdf" target="_blank" rel="noopener">ที่พัก accommodation↗</a><br>
+          <a href="assets/ticket.pdf" target="_blank" rel="noopener">ประกันการเดินทาง Travel Insurance↗</a><br>
+        </article>
+        <article class="arrival-card"><span class="num">04</span>
+          <h3>ศุลกากร</h3>
+          <p>ทำ Customs Declaration ผ่าน Visit Japan Web และเตรียมแสดงข้อมูลเมื่อถึงขั้นตอนศุลกากร</p>
+          <a href="assets/ticket.pdf" target="_blank" rel="noopener"> QR Visit Japan Preeyachat↗</a>
+          <a href="assets/ticket.pdf" target="_blank" rel="noopener"> QR Visit Japan Sureeporn ↗</a>
+        </article>
+
+        
+      </div>
+      <div class="notice"><b>สำหรับผู้ถือพาสปอร์ตไทย:</b> ญี่ปุ่นยกเว้นวีซ่าสำหรับผู้ถือ ordinary IC/ePassport ของไทยที่เข้าพักระยะสั้นไม่เกิน 15 วัน แต่เจ้าหน้าที่อาจขอตรวจตั๋วขากลับ หลักฐานค่าใช้จ่าย ที่อยู่/ผู้ติดต่อในญี่ปุ่น และแผนการเดินทางได้ ดังนั้นเก็บเอกสารเหล่านี้ไว้ในโฟลเดอร์นี้ด้วย</div>
+
+      <!-- IMMIGRATION PREPARATION CARD -->
+      <div class="immigration-info-card">
+        <div class="immig-card-header">
+          <h3>✈️ Immigration Information / ข้อมูลสำหรับแจ้ง ตม.</h3>
+          <p>(Show this information to the officer if requested / ยื่นหน้านี้ให้เจ้าหน้าที่ดูหากต้องการสอบถามข้อมูล)</p>
+        </div>
+        
+        <div class="passenger-grid">
+          <!-- 1. ข้อมูลสามี (Husband) -->
+          <div class="passenger-card husband">
+            <h4>👨🏻‍💼 Passenger 1: Husband (สามี)</h4>
+            <ul>
+              <li><strong>Full Name:</strong> Preeyachat Rongkaew</li>
+              <li><strong>Occupation:</strong> Government Officer / Civil Servant (ข้าราชการ)</li>
+              <li><strong>Organization:</strong> Department of Water Resources, Thailand</li>
+              <li><strong>Purpose of Visit:</strong> Sightseeing / Tourism (ท่องเที่ยว)</li>
+              <li><strong>Duration of Stay:</strong> 6 Days (15 - 20 Oct 2026)</li>
+            </ul>
+          </div>
+
+          <!-- 2. ข้อมูลภรรยา (Wife) -->
+          <div class="passenger-card wife">
+            <h4>👩🏻‍🏫 Passenger 2: Wife (ภรรยา)</h4>
+            <ul>
+              <li><strong>Full Name:</strong> Sureeporn Nata</li>
+              <li><strong>Occupation:</strong> Teacher / Civil Servant (ข้าราชการครู)</li>
+              <li><strong>Organization:</strong> Satri Witthaya School, Thailand</li>
+              <li><strong>Purpose of Visit:</strong> Sightseeing / Tourism (ท่องเที่ยว)</li>
+              <li><strong>Duration of Stay:</strong> 6 Days (15 - 20 Oct 2026)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. ข้อมูลการเดินทางและที่พักร่วมกัน -->
+        <div class="stay-details-card">
+          <h4>🏨 Trip Details & Hotel (ข้อมูลเที่ยวบินและที่พัก)</h4>
+          <ul>
+            <li><strong>Hotel Name:</strong> Royal Namba South</li>
+            <li><strong>Hotel Address:</strong> 1-chōme-4-5 Ebisuhonmachi, Naniwa Ward, Osaka, 556-0013, Japan</li>
+            <li><strong>Flight Outbound:</strong> Bangkok to Osaka - 15 Oct 2026 (01:10)</li>
+            <li><strong>Flight Return:</strong> Osaka to Bangkok - 20 Oct 2026 (21:00)</li>
+          </ul>
+        </div>
+
+        <!-- 4. คำตอบสำหรับการตอบคำถาม ตม. ญี่ปุ่น (เจอบ่อย & นานๆ เจอ) -->
+
+        <div class="qa-card">
+          <h4>💬 Quick Answers: Common Questions (คำถาม ตม. ญี่ปุ่น ที่เจอบ่อย)</h4>
+          <div class="qa-list">
+            <div class="qa-item">
+              <strong>Q: What is the purpose of your visit? (มาทำอะไร)</strong>
+              <span>A: "Sightseeing" หรือ "Vacation" (มาเที่ยวพักผ่อนครับ/ค่ะ)</span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: Are you traveling together? (เดินทางด้วยกันไหม)</strong>
+              <span>A: "Yes, we are husband and wife." (ใช่ครับ/ค่ะ มาด้วยกัน เป็นสามีภรรยากัน)</span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: How many days will you stay? (อยู่นานกี่วัน)</strong>
+              <span>A: "We stay for 6 days." (อยู่ 6 วันครับ/ค่ะ : 15 - 20 ต.ค. 2026)</span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: Where are you staying? (พักที่ไหน)</strong>
+              <span>A: "At Royal Namba South in Osaka." (พักที่โรงแรม Royal Namba South เมืองโอซาก้า)</span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: Is this your first time in Japan? (เคยมาญี่ปุ่นมาก่อนไหม)</strong>
+              <span>A: "Yes, this is our first time." (ใช่ครับ/ค่ะ มาครั้งแรก)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <h4>🔍 Quick Answers: Deep Verification (คำถามเชิงลึก / นานๆ เจอที)</h4>
+          <div class="qa-list">
+            <div class="qa-item">
+              <strong>Q: What is your occupation? (ทำงานอะไร)</strong>
+              <span>
+                A: 
+                <br>• สามี: "I am a government engineer at the Department of Water Resources." (ข้าราชการวิศวกร กรมทรัพยากรน้ำ)
+                <br>• ภรรยา: "I am a government teacher at Satriwitthaya School." (ข้าราชการครู โรงเรียนสตรีวิทยา)
+              </span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: How much money/cash do you have? (เตรียมเงินมาเท่าไหร่)</strong>
+              <span>A: "We have about 250,000 (two hundred fifty thousand) Yen in cash and Credit card and Visa card ." (มีเงินสดประมาณ 250,000 เยน พร้อมบัตรเครดิต)</span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: Can I see your return ticket and hotel booking? (ขอดูตั๋วขากลับและใบจองโรงแรม)</strong>
+              <span>A: "Here you are." (ยื่นตั๋วขากลับวันที่ 20 Oct และใบจอง Royal Namba South ให้ดู)</span>
+            </div>
+            <div class="qa-item">
+              <strong>Q: Do you have friends or relatives living in Japan? (มีเพื่อนหรือญาติอยู่ที่นี่ไหม)</strong>
+              <span>A: "No, we don't." (ไม่มีครับ/ค่ะ)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="footer-note">
+      <span>✦</span><p>แผนนี้พร้อมใช้งานสำหรับสมาร์ทโฟนเต็มรูปแบบ<br>ข้อมูลทั้งหมดรวมเวลา ค่าเดินทาง ตั๋ว และที่พัก อัปเดตครบถ้วนแล้ว</p>
+    </section>
+  </main>
+
+  <footer>OUR JAPAN TRIP • made for two ✈</footer>
+  <script src="app.js"></script>
+</body>
+</html>

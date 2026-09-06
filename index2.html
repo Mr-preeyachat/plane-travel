@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <title>Japan Trip • Japanese Signboard & Phrasebook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@500;700;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom styles specifically for Japanese Signboard Page */
+    .sign-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: calc(100vh - 100px);
+      min-height: calc(100dvh - 100px);
+      justify-content: center;
+    }
+
+    .category-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      width: 100%;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .category-pills::-webkit-scrollbar { display: none; }
+
+    .pill-btn {
+      background: var(--panel);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 8px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pill-btn.active, .pill-btn:hover {
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(141, 123, 255, 0.4);
+    }
+
+    /* Main Display Card (Signboard) */
+    .display-card {
+      width: 100%;
+      background: linear-gradient(145deg, #151d32, #0d1322);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card-badge {
+      background: rgba(255, 121, 176, 0.15);
+      color: var(--pink);
+      border: 1px solid rgba(255, 121, 176, 0.3);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    /* 3 Rows Layout */
+    .row-jp {
+      margin-bottom: 24px;
+      width: 100%;
+    }
+    .jp-main {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(32px, 8vw, 54px);
+      font-weight: 900;
+      line-height: 1.25;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      background: linear-gradient(180deg, #ffffff 30%, #e0e7ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      word-break: break-word;
+    }
+    .jp-romaji {
+      font-family: Prompt, sans-serif;
+      font-size: 16px;
+      color: var(--accent2);
+      margin-top: 8px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .row-divider {
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      margin: 16px 0 24px;
+    }
+
+    .row-en {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .row-th {
+      font-size: 18px;
+      color: #94a3b8;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .th-pronounce {
+      color: #f472b6;
+      font-weight: 500;
+      display: block;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    /* Card Controls */
+    .card-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .action-btn:hover, .action-btn:active {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .action-btn.speech-btn {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border: none;
+    }
+
+    /* Navigation Prev/Next Controls */
+    .nav-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    .nav-circle-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: all 0.2s ease;
+    }
+    .nav-circle-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .counter-text {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Drawer Search */
+    .search-box {
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .phrase-list-group {
+      margin-bottom: 20px;
+    }
+    .phrase-group-title {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--pink);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      padding-left: 8px;
+      font-weight: 600;
+    }
+    .phrase-item {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: var(--text);
+      transition: background 0.2s ease;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+    .phrase-item:hover, .phrase-item.active {
+      background: rgba(141, 123, 255, 0.15);
+      color: #fff;
+    }
+    .phrase-item div {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .phrase-item small {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn" id="menuBtn" aria-label="เปิดเมนูประโยค">☰</button>
+    <div class="brand">
+      <div class="brand-mark" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);">JP</div>
+      <div><strong>JAPANESE SIGNBOARD</strong><span>ป้ายแสดงข้อความสื่อสาร</span></div>
+    </div>
+    <a href="index.html" class="icon-btn" style="display:grid; place-items:center;" aria-label="กลับหน้าหลัก">✕</a>
+  </header>
+
+  <!-- Drawer Menu -->
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <b>ประโยคทั้งหมด</b>
+      <button class="icon-btn" id="closeMenu">×</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 ค้นหาประโยค (ไทย/Eng/JP)...">
+    </div>
+    <div class="drawer-body-scroll" id="drawerPhraseList">
+      <!-- Generated by JS -->
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main>
+    <div class="sign-container">
+      
+      <!-- Category Pills Filter -->
+      <div class="category-pills" id="categoryPills">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Main Signboard Display Card -->
+      <div class="display-card" id="displayCard">
+        <span class="card-badge" id="cardCategory">🐟 ตลาดปลา & อาหารสด</span>
+
+        <!-- Row 1: Japanese (Largest & Most Prominent) -->
+        <div class="row-jp">
+          <div class="jp-main" id="textJp">いくらですか？</div>
+          <div class="jp-romaji" id="textRomaji">Ikura desu ka?</div>
+        </div>
+
+        <div class="row-divider"></div>
+
+        <!-- Row 2: English -->
+        <div class="row-en" id="textEn">How much is this?</div>
+
+        <!-- Row 3: Thai -->
+        <div class="row-th">
+          <span id="textTh">ราคาเท่าไหร่ครับ/ค่ะ?</span>
+          <span class="th-pronounce" id="textPronounce">อ่านว่า: อิคุระ เดส กะ?</span>
+        </div>
+
+        <!-- Card Action Buttons -->
+        <div class="card-actions">
+          <button class="action-btn speech-btn" id="speakBtn">
+            <span>🔊 ออกเสียงภาษาญี่ปุ่น</span>
+          </button>
+          <button class="action-btn" id="copyBtn">
+            <span>📋 คัดลอกข้อความ</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Prev / Next Controls -->
+      <div class="nav-controls">
+        <button class="nav-circle-btn" id="prevBtn" aria-label="ประโยคก่อนหน้า">‹</button>
+        <span class="counter-text" id="counterText">1 / 25</span>
+        <button class="nav-circle-btn" id="nextBtn" aria-label="ประโยคถัดไป">›</button>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Phrasebook Data
+    const phraseData = [
+      // 1. ตลาดปลา & อาหารสด (Fish Market & Food Service)
+      {
+        id: 'p1',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: 'いくらですか？',
+        romaji: 'Ikura desu ka?',
+        en: 'How much is this?',
+        th: 'ราคาเท่าไหร่ครับ/ค่ะ?',
+        pronounce: 'อิคุระ เดส กะ?'
+      },
+      {
+        id: 'p2',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '1匹の値段ですか？',
+        romaji: 'Ippiki no nedan desu ka?',
+        en: 'Is this the price per piece / whole fish?',
+        th: 'ราคาต่อ 1 ตัวใช่ไหมครับ/ค่ะ?',
+        pronounce: 'อิปปิกิ โนะ เนดัน เดส กะ?'
+      },
+      {
+        id: 'p3',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '100gの値段ですか？',
+        romaji: 'Hyakugram no nedan desu ka?',
+        en: 'Is this the price per 100 grams?',
+        th: 'ราคาต่อ 100 กรัมใช่ไหมครับ/ค่ะ?',
+        pronounce: 'เฮียคุ กรัม โนะ เนดัน เดส กะ?'
+      },
+      {
+        id: 'p4',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '調理代はいくらですか？',
+        romaji: 'Chouridai wa ikura desu ka?',
+        en: 'How much is the cooking service fee?',
+        th: 'ค่าทำอาหาร / ค่าปรุงเท่าไหร่ครับ/ค่ะ?',
+        pronounce: 'โชริได วะ อิคุระ เดส กะ?'
+      },
+      {
+        id: 'p5',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '調理サービスはありますか？',
+        romaji: 'Chouri saabisu wa arimasu ka?',
+        en: 'Do you offer cooking/grilling service?',
+        th: 'มีบริการทำอาหาร / ปรุงให้ไหมครับ/ค่ะ?',
+        pronounce: 'โชริ ซาบิสึ วะ อาริมัส กะ?'
+      },
+      {
+        id: 'p6',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '調理をお願いできますか？',
+        romaji: 'Chouri o onegai dekimasu ka?',
+        en: 'Could you please cook/prepare this for me?',
+        th: 'ช่วยทำอาหาร / ปรุงอันนี้ให้หน่อยได้ไหมครับ/ค่ะ?',
+        pronounce: 'โชริ โอะ โอเนไง เดคิมัส กะ?'
+      },
+      {
+        id: 'p7',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: 'おまかせでおすすめの調理をお願いします。',
+        romaji: 'Omakase de osusume no chouri o onegai shimasu.',
+        en: 'Please cook it in your recommended style (Chef\'s choice).',
+        th: 'ช่วยทำตามแบบที่เชฟแนะนำเลยครับ/ค่ะ (แล้วแต่คุณเลย)',
+        pronounce: 'โอมากาเสะ เดะ โอซุซุเมะ โนะ โชริ โอะ โอเนไง ชิมัส'
+      },
+      {
+        id: 'p8',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '刺身にしてください。',
+        romaji: 'Sashimi ni shite kudasai.',
+        en: 'Please slice this into sashimi.',
+        th: 'ช่วยหั่นทำเป็นซาชิมิให้หน่อยครับ/ค่ะ',
+        pronounce: 'ซาชิมิ นิ ชิเตะ คุดาไซ'
+      },
+      {
+        id: 'p9',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '炭火焼きにしてください。',
+        romaji: 'Sumibiyaki ni shite kudasai.',
+        en: 'Please charcoal grill this for me.',
+        th: 'ช่วยย่าง (ย่างถ่าน) ให้หน่อยครับ/ค่ะ',
+        pronounce: 'ซุมิบิยากิ นิ ชิเตะ คุดาไซ'
+      },
+      {
+        id: 'p10',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: 'ここで食べられますか？',
+        romaji: 'Koko de taberaremasu ka?',
+        en: 'Can I eat this here?',
+        th: 'สามารถนั่งทานตรงนี้ได้ไหมครับ/ค่ะ?',
+        pronounce: 'โคโค เดะ ทาเบราเรมัส กะ?'
+      },
+      {
+        id: 'p11',
+        cat: 'fishmarket',
+        catName: '🐟 ตลาดปลา & อาหารสด',
+        jp: '持ち帰りできますか？',
+        romaji: 'Mochikaeri dekimasu ka?',
+        en: 'Can I take this to go?',
+        th: 'ห่อกลับบ้านได้ไหมครับ/ค่ะ?',
+        pronounce: 'โมจิคาเอริ เดคิมัส กะ?'
+      },
+
+      // 2. การต่อคิว & การจอง (Queuing & Reservation)
+      {
+        id: 'p12',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: 'オンラインで予約しました。',
+        romaji: 'Onrain de yoyaku shimashita.',
+        en: 'I made a reservation online.',
+        th: 'ฉันจองคิวออนไลน์มาครับ/ค่ะ',
+        pronounce: 'ออนไลน์ เดะ โยยาคุ ชิมาชิตะ'
+      },
+      {
+        id: 'p12_2',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: 'ネットで予約した者です。',
+        romaji: 'Netto de yoyaku shita mono desu.',
+        en: 'I booked online (showing my reservation).',
+        th: 'ฉันเป็นคนที่จองคิวทางอินเทอร์เน็ตไว้ครับ/ค่ะ',
+        pronounce: 'เน็ตโตะ เดะ โยยาคุ ชิตะ โมโนะ เดส'
+      },
+      {
+        id: 'p12_3',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: '別の日に予約をしたいのですが、できますか？',
+        romaji: 'Betsu no hi ni yoyaku o shitai no desu ga, dekimasu ka?',
+        en: 'I would like to make a reservation for another day.',
+        th: 'ฉันอยากขอจองคิวไว้สำหรับวันอื่นครับ/ค่ะ',
+        pronounce: 'เบ็ตสึ โนะ ฮิ นิ โยยาคุ โอะ ชิไท โนะ เดส กะ, เดคิมัส กะ?'
+      },
+      {
+        id: 'p12_4',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: '今日はもう満席（受付終了）ですか？',
+        romaji: 'Kyou wa mou manseki (uketsuke shuuryou) desu ka?',
+        en: 'Is it fully booked / closed for today?',
+        th: 'วันนี้คิวเต็มแล้วใช่ไหมครับ/ค่ะ?',
+        pronounce: 'เคียว วะ โม มันเซกิ เดส กะ?'
+      },
+      {
+        id: 'p12_5',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: '整理券はどこで取りますか？',
+        romaji: 'Seiriken wa doko de torimasu ka?',
+        en: 'Where can I get a numbered queue ticket?',
+        th: 'ต้องกด/รับบัตรคิวตรงไหนครับ/ค่ะ?',
+        pronounce: 'เซริเคน วะ โดโกะ เดะ โทริมัส กะ?'
+      },
+      {
+        id: 'p13',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: 'どこに並べばいいですか？',
+        romaji: 'Doko ni narabeba ii desu ka?',
+        en: 'Where should I line up / queue?',
+        th: 'ฉันต้องต่อคิวตรงไหนครับ/ค่ะ?',
+        pronounce: 'โดโกะ นิ นาราเบบะ อี๊ เดส กะ?'
+      },
+      {
+        id: 'p14',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: 'ここが最後尾ですか？',
+        romaji: 'Koko ga saigobi desu ka?',
+        en: 'Is this the end of the line?',
+        th: 'ตรงนี้คือท้ายแถวใช่ไหมครับ/ค่ะ?',
+        pronounce: 'โคโค กะ ไซโกบิ เดส กะ?'
+      },
+      {
+        id: 'p15',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: 'あと何組待ちですか？',
+        romaji: 'Ato nankumi machi desu ka?',
+        en: 'How many groups are waiting ahead of us?',
+        th: 'เหลืออีกกี่คิวครับ/ค่ะ?',
+        pronounce: 'อาโตะ นันคุมิ มาจิ เดส กะ?'
+      },
+      {
+        id: 'p15_2',
+        cat: 'queue',
+        catName: '🚶 คิว & การจอง',
+        jp: 'これをお願いします。',
+        romaji: 'Kore o onegai shimasu.',
+        en: 'I would like this one, please.',
+        th: 'ขอรับอันนี้ครับ/ค่ะ (ใช้มือชี้ได้เลย)',
+        pronounce: 'โคเระ โอะ โอเนไง ชิมัส'
+      },
+
+      // 3. ราคา & การชำระเงิน (Price & Payment)
+      {
+        id: 'p16',
+        cat: 'payment',
+        catName: '💰 ชำระเงิน & สอบถาม',
+        jp: '合計でいくらですか？',
+        romaji: 'Goukei de ikura desu ka?',
+        en: 'How much is the total?',
+        th: 'ยอดรวมทั้งหมดเท่าไหร่ครับ/ค่ะ?',
+        pronounce: 'โกเค เดะ อิคุระ เดส กะ?'
+      },
+      {
+        id: 'p17',
+        cat: 'payment',
+        catName: '💰 ชำระเงิน & สอบถาม',
+        jp: 'クレジットカードは使えますか？',
+        romaji: 'Kurejitto kaado wa tsukaemasu ka?',
+        en: 'Can I use a credit card?',
+        th: 'รับบัตรเครดิตไหมครับ/ค่ะ?',
+        pronounce: 'เครดิตโตะ การ์โดะ วะ สึคาเอมัส กะ?'
+      },
+      {
+        id: 'p18',
+        cat: 'payment',
+        catName: '💰 ชำระเงิน & สอบถาม',
+        jp: '現金のみですか？',
+        romaji: 'Genkin nomi desu ka?',
+        en: 'Is it cash only?',
+        th: 'รับเฉพาะเงินสดอย่างเดียวใช่ไหมครับ/ค่ะ?',
+        pronounce: 'เก็นคิน โนมิ เดส กะ?'
+      },
+      {
+        id: 'p19',
+        cat: 'payment',
+        catName: '💰 ชำระเงิน & สอบถาม',
+        jp: '領収書をいただけますか？',
+        romaji: 'Ryoushuusho o itadakemasu ka?',
+        en: 'May I have a receipt, please?',
+        th: 'ขอใบเสร็จรับเงินด้วยครับ/ค่ะ',
+        pronounce: 'เรียวชูโช โอะ อิตาดาเคมัส กะ?'
+      },
+
+      // 4. การเดินทาง & ทิศทาง (Directions & Transport)
+      {
+        id: 'p20',
+        cat: 'directions',
+        catName: '🗺️ ทิศทาง & สถานที่',
+        jp: '駅はどこですか？',
+        romaji: 'Eki wa doko desu ka?',
+        en: 'Where is the train station?',
+        th: 'สถานีรถไฟอยู่ที่ไหนครับ/ค่ะ?',
+        pronounce: 'เอคิ วะ โดโกะ เดส กะ?'
+      },
+      {
+        id: 'p21',
+        cat: 'directions',
+        catName: '🗺️ ทิศทาง & สถานที่',
+        jp: 'トイレはどこですか？',
+        romaji: 'Toire wa doko desu ka?',
+        en: 'Where is the restroom?',
+        th: 'ห้องน้ำอยู่ที่ไหนครับ/ค่ะ?',
+        pronounce: 'โตอิเระ วะ โดโกะ เดส กะ?'
+      },
+      {
+        id: 'p22',
+        cat: 'directions',
+        catName: '🗺️ ทิศทาง & สถานที่',
+        jp: 'ゴミ箱はどこですか？',
+        romaji: 'Gomibako wa doko desu ka?',
+        en: 'Where is the trash can?',
+        th: 'ถังขยะอยู่ที่ไหนครับ/ค่ะ?',
+        pronounce: 'โกมิบาโกะ วะ โดโกะ เดส กะ?'
+      },
+
+      // 5. คำสุภาพ & ทั่วไป (Courtesy & General)
+      {
+        id: 'p23',
+        cat: 'courtesy',
+        catName: '💬 คำสุภาพ & ทั่วไป',
+        jp: 'すみません。',
+        romaji: 'Sumimasen.',
+        en: 'Excuse me / Sorry.',
+        th: 'ขอโทษครับ/ค่ะ (ใช้เรียกพนักงานหรือขอทาง)',
+        pronounce: 'สุมิมาเซน'
+      },
+      {
+        id: 'p24',
+        cat: 'courtesy',
+        catName: '💬 คำสุภาพ & ทั่วไป',
+        jp: 'ありがとうございます！',
+        romaji: 'Arigatou gozaimasu!',
+        en: 'Thank you very much!',
+        th: 'ขอบคุณมากครับ/ค่ะ!',
+        pronounce: 'อาริกาโตะ โกไซมัส!'
+      },
+      {
+        id: 'p25',
+        cat: 'courtesy',
+        catName: '💬 คำสุภาพ & ทั่วไป',
+        jp: 'とても美味しかったです！',
+        romaji: 'Totemo oishikatta desu!',
+        en: 'It was very delicious!',
+        th: 'อร่อยมากเลยครับ/ค่ะ!',
+        pronounce: 'โตเตโมะ โออิชิก็ัตตะ เดส!'
+      },
+      {
+        id: 'p26',
+        cat: 'courtesy',
+        catName: '💬 คำสุภาพ & ทั่วไป',
+        jp: '大丈夫です。',
+        romaji: 'Daijoubu desu.',
+        en: 'It\'s okay / No problem / No thank you.',
+        th: 'ไม่เป็นไรครับ/ค่ะ / ไม่รับครับ',
+        pronounce: 'ไดโจบุ เดส'
+      }
+    ];
+
+    // App State
+    let currentFilteredList = [...phraseData];
+    let currentIndex = 0;
+    let selectedCat = 'all';
+
+    // DOM Elements
+    const $ = selector => document.querySelector(selector);
+    const drawer = $('#drawer');
+    const scrim = $('#scrim');
+
+    // Categories definition
+    const categories = [
+      { id: 'all', name: '✨ ทั้งหมด' },
+      { id: 'fishmarket', name: '🐟 ตลาดปลา & อาหารสด' },
+      { id: 'queue', name: '🚶 คิว & การจอง' },
+      { id: 'payment', name: '💰 ชำระเงิน' },
+      { id: 'directions', name: '🗺️ ทิศทาง' },
+      { id: 'courtesy', name: '💬 คำสุภาพ' }
+    ];
+
+    function init() {
+      renderCategoryPills();
+      renderDrawerList(phraseData);
+      updateDisplay();
+
+      // Event Listeners
+      $('#menuBtn').onclick = () => { drawer.classList.add('open'); scrim.classList.add('show'); };
+      $('#closeMenu').onclick = () => { drawer.classList.remove('open'); scrim.classList.remove('show'); };
+      scrim.onclick = () => { drawer.classList.remove('open'); scrim.classList.remove('show'); };
+
+      $('#prevBtn').onclick = prevPhrase;
+      $('#nextBtn').onclick = nextPhrase;
+
+      $('#speakBtn').onclick = speakJapanese;
+      $('#copyBtn').onclick = copyText;
+
+      $('#searchInput').oninput = (e) => filterSearch(e.target.value);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevPhrase();
+        if (e.key === 'ArrowRight') nextPhrase();
+      });
+    }
+
+    function renderCategoryPills() {
+      const pillsContainer = $('#categoryPills');
+      pillsContainer.innerHTML = categories.map(c => `
+        <button class="pill-btn ${c.id === selectedCat ? 'active' : ''}" onclick="selectCategory('${c.id}')">
+          ${c.name}
+        </button>
+      `).join('');
+    }
+
+    function selectCategory(catId) {
+      selectedCat = catId;
+      renderCategoryPills();
+      if (catId === 'all') {
+        currentFilteredList = [...phraseData];
+      } else {
+        currentFilteredList = phraseData.filter(p => p.cat === catId);
+      }
+      currentIndex = 0;
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      if (currentFilteredList.length === 0) {
+        $('#cardCategory').textContent = 'ไม่พบข้อมูล';
+        $('#textJp').textContent = '該当なし';
+        $('#textRomaji').textContent = '-';
+        $('#textEn').textContent = 'No matching phrases found';
+        $('#textTh').textContent = 'ไม่พบประโยคที่ค้นหา';
+        $('#textPronounce').textContent = '';
+        $('#counterText').textContent = '0 / 0';
+        return;
+      }
+
+      const item = currentFilteredList[currentIndex];
+      $('#cardCategory').textContent = item.catName;
+      $('#textJp').textContent = item.jp;
+      $('#textRomaji').textContent = item.romaji;
+      $('#textEn').textContent = item.en;
+      $('#textTh').textContent = item.th;
+      $('#textPronounce').textContent = item.pronounce ? `อ่านว่า: ${item.pronounce}` : '';
+      $('#counterText').textContent = `${currentIndex + 1} / ${currentFilteredList.length}`;
+
+      // Highlight item in drawer if open
+      document.querySelectorAll('.phrase-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === item.id);
+      });
+    }
+
+    function prevPhrase() {
+      if (currentFilteredList.length === 0) return;
+      currentIndex = (currentIndex - 1 + currentFilteredList.length) % currentFilteredList.length;
+      updateDisplay();
+    }
+
+    function nextPhrase() {
+      if (currentFilteredList.length === 0) return;
+      currentIndex = (currentIndex + 1) % currentFilteredList.length;
+      updateDisplay();
+    }
+
+    function renderDrawerList(data) {
+      const container = $('#drawerPhraseList');
+      if (data.length === 0) {
+        container.innerHTML = '<div style="padding:16px; color:var(--muted); text-align:center;">ไม่พบประโยคที่ค้นหา</div>';
+        return;
+      }
+
+      // Group by category
+      const groups = {};
+      data.forEach(item => {
+        if (!groups[item.catName]) groups[item.catName] = [];
+        groups[item.catName].push(item);
+      });
+
+      let html = '';
+      for (const [catName, items] of Object.entries(groups)) {
+        html += `
+          <div class="phrase-list-group">
+            <div class="phrase-group-title">${catName}</div>
+            ${items.map(item => `
+              <div class="phrase-item" data-id="${item.id}" onclick="jumpToPhrase('${item.id}')">
+                <div>${item.jp}</div>
+                <small>${item.th}</small>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function jumpToPhrase(id) {
+      const idx = currentFilteredList.findIndex(p => p.id === id);
+      if (idx !== -1) {
+        currentIndex = idx;
+      } else {
+        // If not in current filtered list, reset filter to 'all'
+        selectedCat = 'all';
+        currentFilteredList = [...phraseData];
+        renderCategoryPills();
+        currentIndex = phraseData.findIndex(p => p.id === id);
+      }
+      updateDisplay();
+      drawer.classList.remove('open');
+      scrim.classList.remove('show');
+    }
+
+    function filterSearch(query) {
+      const q = query.toLowerCase().trim();
+      if (!q) {
+        currentFilteredList = selectedCat === 'all' ? [...phraseData] : phraseData.filter(p => p.cat === selectedCat);
+        renderDrawerList(currentFilteredList);
+        currentIndex = 0;
+        updateDisplay();
+        return;
+      }
+
+      const filtered = phraseData.filter(p => 
+        p.jp.toLowerCase().includes(q) ||
+        p.romaji.toLowerCase().includes(q) ||
+        p.en.toLowerCase().includes(q) ||
+        p.th.toLowerCase().includes(q) ||
+        p.pronounce.toLowerCase().includes(q)
+      );
+
+      currentFilteredList = filtered;
+      renderDrawerList(filtered);
+      currentIndex = 0;
+      updateDisplay();
+    }
+
+    function speakJapanese() {
+      if (currentFilteredList.length === 0) return;
+      const text = currentFilteredList[currentIndex].jp;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Stop any active speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.85; // Slightly slower for clear understanding
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('เบราว์เซอร์ของคุณไม่รองรับระบบออกเสียงอัตโนมัติ');
+      }
+    }
+
+    function copyText() {
+      if (currentFilteredList.length === 0) return;
+      const item = currentFilteredList[currentIndex];
+      const textToCopy = `${item.jp}\n${item.en}\n${item.th}`;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const copyBtn = $('#copyBtn');
+        const origText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<span>✅ คัดลอกแล้ว!</span>';
+        setTimeout(() => copyBtn.innerHTML = origText, 2000);
+      }).catch(err => {
+        alert('คัดลอกไม่สำเร็จ');
+      });
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
